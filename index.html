@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para el Amor de mi Vida 🌟</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 18px;
+  display: grid;
+  place-items: center;
+  font-family: Georgia, serif;
+  color: #604457;
+  background: linear-gradient(135deg, #fde8f0, #eee5fc, #fff3e9);
+}
+
+.card {
+  width: min(100%, 700px);
+  min-height: 650px;
+  padding: clamp(22px, 5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: rgba(255,250,248,.94);
+  border: 1px solid white;
+  border-radius: 28px;
+  box-shadow: 0 20px 60px #98648725;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(3px);
+}
+
+.page { display: none; animation: appear .5s ease; }
+.page.active { display: block; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  font-size: clamp(38px, 8vw, 65px);
+  color: #994d75;
+  font-weight: normal;
+  margin: 18px 0;
+}
+
+h2 {
+  color: #994d75;
+  font-weight: normal;
+  font-size: clamp(25px, 5vw, 36px);
+}
+
+p { font-size: 17px; line-height: 1.8; }
+
+.small {
+  color: #957b8c;
+  font: 14px/1.7 Arial, sans-serif;
+}
+
+.heart {
+  font-size: 48px;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+button, .button {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 22px;
+  min-height: 48px;
+  background: #bd608b;
+  color: white;
+  font: bold 14px Arial, sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+}
+
+button:hover, .button:hover {
+  background: #91476a;
+  transform: translateY(-2px);
+}
+
+.secondary {
+  background: #f0e2ed;
+  color: #91476a;
+}
+
+.secondary:hover { background: #e7d2e2; }
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.note {
+  background: linear-gradient(135deg, #fff0f5, #f2edfc);
+  padding: 20px;
+  border-radius: 20px;
+  margin: 20px 0;
+}
+
+.divider {
+  margin: 24px 0;
+  color: #c68aaa;
+  letter-spacing: 8px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #e5cada;
+  border-radius: 10px;
+}
+
+.dot.active {
+  width: 24px;
+  background: #bd608b;
+}
+
+.music-card {
+  background: white;
+  border: 1px solid #f0dce7;
+  border-radius: 22px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.equalizer {
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.equalizer span {
+  width: 7px;
+  height: 12px;
+  border-radius: 8px;
+  background: linear-gradient(#dc83a9, #9b79c7);
+  animation: wave .7s ease-in-out infinite alternate;
+}
+
+.equalizer span:nth-child(2n) { animation-delay: .2s; }
+.equalizer span:nth-child(3n) { animation-delay: .4s; }
+
+@keyframes wave {
+  from { height: 8px; }
+  to { height: 52px; }
+}
+
+/* CAJITA DE REGALO */
+.gift-stage {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  margin: 12px 0;
+}
+
+.gift {
+  position: relative;
+  width: 145px;
+  height: 115px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 8px;
+  background: #d9779e;
+  box-shadow: 0 15px 30px #bd729344;
+  animation: float 2s ease-in-out infinite;
+}
+
+.gift:hover { background: #d9779e; }
+
+.box-ribbon {
+  position: absolute;
+  width: 26px;
+  height: 100%;
+  left: 59px;
+  top: 0;
+  background: #ffe9b9;
+}
+
+.box-band {
+  position: absolute;
+  height: 24px;
+  width: 100%;
+  top: 25px;
+  left: 0;
+  background: #c45c89;
+  border-top: 5px solid #ffe9b9;
+  border-bottom: 5px solid #ffe9b9;
+}
+
+.lid {
+  position: absolute;
+  z-index: 2;
+  left: -8px;
+  top: -20px;
+  width: 161px;
+  height: 32px;
+  border-radius: 7px;
+  background: #e998b8;
+  transform-origin: left center;
+  transition: transform .7s;
+}
+
+.bow {
+  position: absolute;
+  z-index: 3;
+  top: -42px;
+  left: 51px;
+  font-size: 38px;
+  color: #d3a04c;
+}
+
+.gift.opened { animation: none; }
+
+.gift.opened .lid {
+  transform: translate(-12px,-42px) rotate(-28deg);
+}
+
+.qr-wrap {
+  display: none;
+  animation: appear .6s ease;
+}
+
+.qr-wrap.show { display: block; }
+
+.qr-frame {
+  width: 210px;
+  height: 210px;
+  max-width: 100%;
+  padding: 10px;
+  margin: 18px auto;
+  display: grid;
+  place-items: center;
+  background: white;
+  border: 1px solid #ead6e1;
+  border-radius: 18px;
+}
+
+.qr-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.big-love {
+  font-family: Arial, sans-serif;
+  font-size: clamp(55px, 14vw, 110px);
+  font-weight: bold;
+  color: #c04f82;
+  text-shadow: 0 8px 0 #f7d8e5;
+  animation: appear 1.2s ease;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* CORAZONES Y ROSAS FLOTANTES */
+.romantic-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.romantic-background .floaty {
+  position: absolute;
+  bottom: -12vh;
+  opacity: 0;
+  animation: float-up linear infinite;
+  filter: drop-shadow(0 3px 5px rgba(160,75,120,.12));
+}
+
+.heart-float { color: #d9779e; }
+.rose-float { color: #bd608b; }
+
+.romantic-background .floaty:nth-child(1) {
+  left: 5%; font-size: 22px; animation-duration: 17s; animation-delay: -3s;
+}
+.romantic-background .floaty:nth-child(2) {
+  left: 16%; font-size: 30px; animation-duration: 21s; animation-delay: -12s;
+}
+.romantic-background .floaty:nth-child(3) {
+  left: 27%; font-size: 18px; animation-duration: 16s; animation-delay: -7s;
+}
+.romantic-background .floaty:nth-child(4) {
+  left: 39%; font-size: 28px; animation-duration: 23s; animation-delay: -16s;
+}
+.romantic-background .floaty:nth-child(5) {
+  left: 51%; font-size: 20px; animation-duration: 18s; animation-delay: -10s;
+}
+.romantic-background .floaty:nth-child(6) {
+  left: 63%; font-size: 32px; animation-duration: 22s; animation-delay: -5s;
+}
+.romantic-background .floaty:nth-child(7) {
+  left: 75%; font-size: 19px; animation-duration: 16s; animation-delay: -13s;
+}
+.romantic-background .floaty:nth-child(8) {
+  left: 87%; font-size: 27px; animation-duration: 20s; animation-delay: -8s;
+}
+.romantic-background .floaty:nth-child(9) {
+  left: 94%; font-size: 17px; animation-duration: 19s; animation-delay: -2s;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translate3d(0,0,0) rotate(-10deg);
+    opacity: 0;
+  }
+  12% { opacity: .5; }
+  50% {
+    transform: translate3d(22px,-55vh,0) rotate(12deg);
+    opacity: .42;
+  }
+  88% { opacity: .28; }
+  100% {
+    transform: translate3d(-18px,-115vh,0) rotate(-18deg);
+    opacity: 0;
+  }
+}
+
+/* DEDICATORIAS MUSICALES */
+.song-dedications {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.song-dedications h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.song-intro {
+  text-align: center;
+  color: #957b8c;
+  font-size: 15px;
+  margin: 0 auto 18px;
+}
+
+.song-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 18px;
+  background: rgba(255,255,255,.88);
+  border: 1px solid #f0dce7;
+  box-shadow: 0 5px 16px rgba(120,65,100,.06);
+  text-align: left;
+}
+
+.song-number {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f7e1ec;
+  color: #91476a;
+  font: bold 12px Arial, sans-serif;
+}
+
+.song-card h3 {
+  margin: 2px 0 6px;
+  color: #994d75;
+  font: bold 16px Arial, sans-serif;
+}
+
+.song-card p {
+  margin: 0;
+  color: #604457;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.song-ending {
+  padding: 18px;
+  margin: 20px 0 6px;
+  border-radius: 18px;
+  background: linear-gradient(135deg,#fff0f5,#f2edfc);
+  color: #91476a;
+  text-align: center;
+  font-style: italic;
+  font-size: 16px;
+}
+
+@media(max-width:480px) {
+  .card { min-height: 0; padding: 28px 18px; }
+  p { font-size: 16px; }
+  .gift-stage { min-height: 200px; }
+  .song-card { padding: 13px; gap: 10px; }
+  .song-card p { font-size: 14px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .romantic-background .floaty { animation: none; opacity: .12; }
+  .equalizer span, .heart { animation: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- FONDO DE CORAZONES Y ROSAS -->
+<div class="romantic-background" aria-hidden="true">
+  <span class="floaty heart-float">♥</span>
+  <span class="floaty rose-float">🌹</span>
+  <span class="floaty heart-float">♡</span>
+  <span class="floaty rose-float">🌹</span>
+  <span class="floaty heart-float">♥</span>
+  <span class="floaty rose-float">🌹</span>
+  <span class="floaty heart-float">♡</span>
+  <span class="floaty rose-float">🌹</span>
+  <span class="floaty heart-float">♥</span>
+</div>
+
+<main class="card">
+
+  <!-- PÁGINA 1 -->
+  <section class="page active">
+    <p class="small">✦ UNA PEQUEÑA SORPRESA ✦</p>
+    <div class="heart">💗</div>
+    <h1>Hola, mi Amorcito</h1>
+    <p>Preparé algo pequeñito para ti,<br>
+    pero está lleno de todo mi amor.</p>
+    <p class="small">Ponte cómoda mi preciosa, y espero te ayude a sentirte un poquito mejor. 🥺</p>
+
+    <div class="nav">
+      <button onclick="goTo(1)">Tengo una sorpresa para ti →</button>
+    </div>
+  </section>
+
+  <!-- PÁGINA 2: MENSAJE -->
+  <section class="page">
+    <p class="small">DE TU LOQUITO ENAMORADO PARA TI</p>
+    <h2>Unas palabritas para mi princesa 💌</h2>
+
+    <div class="note">
+      <p>
+        Mi amor, lastimosamente nos toca estar lejos nuevamente,
+        pero quiero que recuerdes que estoy siempre contigo de corazón.
+        Espero que todos nos sanemos ya muy pronto,
+        y que dejemos todo esto atrás.
+      </p>
+      <p>
+        Te extraño mucho mi amor, a ti y al bebé,
+        pero ya falta muy poco para estar juntitos de nuevo.
+        Te mando todos los besos y abrazos que tenemos pendientes. ❤️
+      </p>
+    </div>
+
+    <div class="nav">
+      <button class="secondary" onclick="goTo(0)">← Anterior</button>
+      <button onclick="goTo(2)">Siguiente sorpresa →</button>
+    </div>
+  </section>
+
+  <!-- PÁGINA 3: PLAYLIST -->
+  <section class="page">
+    <p class="small">UNA CANCIÓN, UN RECUERDO</p>
+    <h2>Nuestra historia en canciones 🎶</h2>
+
+    <p>
+      Hay cosas que a veces no sé explicar con palabras,
+      así que dejo que la música hable por mí.
+    </p>
+
+    <div class="music-card">
+      <div class="equalizer" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+
+      <p class="small">
+        Una playlist para estar cerquita de ti, mi Amor❤️.
+      </p>
+
+      <a class="button"
+         href="https://open.spotify.com/playlist/4rFoM9KBeXEfMc6BuKpmnB?si=27fefcfdd4e942c4&pt=8442bd74f86132fbf1211e7947af9b71"
+         target="_blank"
+         rel="noopener noreferrer">
+        ♫ Escuchar nuestra playlist
+      </a>
+    </div>
+
+    <div class="note">
+      <h2 style="font-size:24px;">¿Por qué estas canciones?</h2>
+      <p>
+        Es la playlist que te había prometido. La mayoría de canciones
+        ya las conocemos, pero quería agregar algunas más para recordarte
+        cuánto te amo y lo que significas para mí. ❤️
+      </p>
+    </div>
+
+    <div class="song-dedications">
+      <p class="song-intro">
+        Cada canción tiene un pedacito de nuestra historia.
+        Ojalá al escucharlas sientas un abrazo como de los que nos sabemos dar 🥹.
+      </p>
+
+      <article class="song-card">
+        <span class="song-number">01</span>
+        <div>
+          <h3>Ordinary — Alex Warren</h3>
+          <p>
+            Esta canción salió cuando yo me estaba enamorando de ti,
+            cada vez que la escuchaba, tú venías a mi mente y yo sentía
+            algo que en ese entonces no lo podía describir.
+            Pero ahora entiendo que era mi corazón diciéndome que tú eres
+            el amor de mi vida, el amor que me saca de lo ordinario.💛
+          </p>
+        </div>
+      </article>
+
+      <article class="song-card">
+        <span class="song-number">02</span>
+        <div>
+          <h3>Yellow — Coldplay</h3>
+          <p>
+            Porque, entre tantas personas en este universo, tú haces que
+            mi mundo brille de una manera única. Esta canción me trae uno de los
+            recuerdos más bonitos, el concierto al que fuimos juntos, y cómo en esa canción,
+            en mi interior te la estaba dedicando con todo mi corazón.💛
+          </p>
+        </div>
+      </article>
+
+      <article class="song-card">
+        <span class="song-number">03</span>
+        <div>
+          <h3>Si tú quieres — Elefante</h3>
+          <p>
+            Porque quiero seguir construyendo nuestra historia contigo,
+            compartir nuestros sueños y elegirte también en los días
+            difíciles. Quiero que sigamos caminando juntos, de la mano. ❤️
+            Una canción que alguna vez creo que también la puse como indirecta. 😅
+          </p>
+        </div>
+      </article>
+
+      <article class="song-card">
+        <span class="song-number">04</span>
+        <div>
+          <h3>Just the Way You Are — Bruno Mars</h3>
+          <p>
+            Esta canción habla de cómo te veo, mi amor, lo hermosa y perfecta
+            que eres ante mis ojos, tal y como tú eres. Amo todo, absolutamente
+            todo todito de ti, mi vida.💗 Y siempre te estaré recordando lo
+            hermosa que eres. 😊
+          </p>
+        </div>
+      </article>
+
+      <article class="song-card">
+        <span class="song-number">05</span>
+        <div>
+          <h3>I Get to Love You — Ruelle</h3>
+          <p>
+            Esta canción me pareció hermosa para describir el amor
+            que siento por ti, cómo en ocasiones me parece
+            increíble haber conocido y amar a una mujer
+            tan extraordinaria como lo eres tú, y cómo agradezco
+            a Dios y a la Lolita por haberme dado la bendición de ser tu novio. 🥹
+          </p>
+        </div>
+      </article>
+
+      <p class="song-ending">
+        Y si alguna vez me extrañas, dale play a estas canciones.
+        Imagina que cada una es un abrazo, un beso y un “te amo”
+        de tu loquito enamorado para ti. En esta vida y en todas las que vengan. ❤️🌹
+      </p>
+    </div>
+
+    <div class="nav">
+      <button class="secondary" onclick="goTo(1)">← Anterior</button>
+      <button onclick="goTo(3)">Hay otro regalito →</button>
+    </div>
+  </section>
+
+  <!-- PÁGINA 4: CAJITA, QR Y CUPONERA -->
+  <section class="page">
+    <p class="small">UN REGALITO PARA TI</p>
+    <h2>Te llegó una cajita, princesa 🎁</h2>
+
+    <p>
+      La envié con todo mi amor.
+      Toca la caja para abrirla y descubrir lo que hay dentro.
+    </p>
+
+    <div class="gift-stage">
+      <button class="gift" id="gift"
+              onclick="openGift()"
+              aria-label="Abrir caja de regalo">
+        <span class="lid"></span>
+        <span class="bow">🎀</span>
+        <span class="box-ribbon"></span>
+        <span class="box-band"></span>
+      </button>
+    </div>
+
+    <p class="small" id="gift-hint">
+      Toca la cajita para abrir tu regalo ✨
+    </p>
+
+    <div class="qr-wrap" id="qr-wrap">
+      <h2>¡Qué será! 💝</h2>
+      <p class="small">Escanea este código para abrir la sorpresa.</p>
+
+      <div class="qr-frame">
+        <img src="qr-cuponera.png"
+             alt="Código QR de la cuponera"
+             onerror="this.style.display='none';
+             document.getElementById('qr-fallback').style.display='block';">
+
+        <p id="qr-fallback" class="small" style="display:none;">
+          Aquí irá tu QR.<br>
+          Guarda la imagen como<br>
+          <strong>qr-cuponera.png</strong>
+        </p>
+      </div>
+
+      <button type="button"
+              class="secondary"
+              id="coupon-message-button"
+              onclick="showCouponMessage()">
+        ¿Ya la abriste? 💌
+      </button>
+
+      <div class="note" id="coupon-message" style="display:none;">
+        <h2 style="font-size:24px;">Una cuponera para siempre 💝</h2>
+        <p>
+          Mi princesa, esta cuponera no tiene fecha de caducidad
+          y puedes usar tus cupones tantas veces como quieras.
+          Solo tienes que pedírmelo, y tus deseos se harán realidad. ❤️
+        </p>
+        <p>
+          La única condición es que nunca te falten amor,
+          mimos, besitos y abrazos de mi parte. 🌹✨
+        </p>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="secondary" onclick="goTo(2)">← Anterior</button>
+      <button onclick="goTo(4)">Una última cosita… →</button>
+    </div>
+  </section>
+
+  <!-- PÁGINA 5: FINAL -->
+  <section class="page">
+    <div class="heart">♡ ✧ ♡</div>
+    <p class="small">Y POR SI NO TE LO HE DICHO SUFICIENTE...</p>
+
+    <div class="big-love">TE AMO</div>
+
+    <h2>En esta vida y en todas las que vengan. Desde aquí hasta el punto más lejano del Universo ❤️</h2>
+    <p>Siempre tuyo,</p>
+    <h2>Tu Loquito Enamorado 🌟</h2>
+
+    <div class="heart">♡ ✧ ♡</div>
+
+    <div class="nav">
+      <button class="secondary" onclick="goTo(3)">← Volver al regalo</button>
+      <button onclick="goTo(0)">Volver al inicio ↺</button>
+    </div>
+  </section>
+
+  <!-- INDICADORES DE LAS 5 PÁGINAS -->
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+</main>
+
+<script>
+function goTo(index) {
+  const pages = document.querySelectorAll(".page");
+  const dots = document.querySelectorAll(".dot");
+
+  pages.forEach((page, i) => {
+    page.classList.toggle("active", i === index);
+  });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === index);
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function openGift() {
+  document.getElementById("gift").classList.add("opened");
+  document.getElementById("qr-wrap").classList.add("show");
+  document.getElementById("gift-hint").textContent =
+    "¡Sorpresa, mi Amorcito! Este regalito es para ti. ❤️";
+}
+
+function showCouponMessage() {
+  const message = document.getElementById("coupon-message");
+  const button = document.getElementById("coupon-message-button");
+
+  message.style.display = "block";
+  button.textContent = "¡Sí, ya la abrí! ❤️";
+}
+</script>
+
+</body>
+</html>
